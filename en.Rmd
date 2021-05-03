@@ -1,0 +1,114 @@
+---
+params: 
+  title: ""
+  publication_date: ""
+  doi: ""
+output: 
+  html_document:
+    anchor_sections: false
+    theme: null
+    highlight: null
+    mathjax: null
+    css: ["style.css", "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap"]
+    self_contained: true
+title: "`r params$title`"
+---
+
+```{r general-setup, include=FALSE}
+## This file contains the ENGLISH version of the data story
+
+# Set general chunk options
+knitr::opts_chunk$set(echo = FALSE, fig.showtext = TRUE, fig.retina = 3, 
+                      fig.align = "center", warning = FALSE, message = FALSE)
+
+# Install pacman package if needed
+if (!require("pacman")) {
+  install.packages("pacman")
+}
+
+# Install snf.datastory package if not available, otherwise load it
+if (!require("snf.datastory")) {
+  if (!require("devtools")) {
+    install.packages("devtools")
+  }
+  install_github("snsf-data/snf.datastory")
+}
+
+# Load packages
+p_load(tidyverse,
+       lubridate,
+       scales, 
+       conflicted, 
+       jsonlite,
+       here)
+
+# Conflict preferences
+conflict_prefer("filter", "dplyr")
+conflict_prefer("get_datastory_theme", "snf.datastory")
+conflict_prefer("get_datastory_scheme", "snf.datastory")
+
+# Increase showtext package font resolution
+showtext_opts(dpi = 320)
+
+# Set the locale for date formatting (Windows)
+Sys.setlocale("LC_TIME", "English")
+```
+
+```{r print-header-infos, results='asis'}
+# Add publication date to header
+cat(format(as_datetime(params$publication_date), "%d.%m.%Y"))
+
+# Register the Google font (same as Data Portal, is not loaded twice)
+cat(paste0("<link href='https://fonts.googleapis.com/css?family=", 
+           "Source+Sans+Pro:400,700&display=swap' rel='stylesheet'>"))
+```
+
+```{r story-specific-setup, include=FALSE}
+# Set story-specific variables etc. here
+
+# E.g. loading data...
+
+```
+
+
+<!-- Short lead (2-3 sentences) in bold -->
+
+__In 2020, researchers submitted 8200 grant applications to the SNSF. 3300 of them were selected for funding in a competitive process. At short notice, the SNSF funded 73 projects on COVID-19.__
+
+Thousands of SNSF-funded teams explore nature, technology and society. This generates knowledge that is a key driver of progress. In 2020, the SNSF invested 937 million francs in 3300 new projects, selected from 8200 applications. 37% of the money was awarded in biology and medicine, 33% in the humanities and social sciences and 30% in mathematics, natural sciences and engineering.
+
+### Decrease in project funding
+
+With 433 million Swiss francs (including 10 million for the "Spark" programme), the "project funding" scheme accounts for the largest share, as usual. Thanks to this scheme, researchers can carry out projects on self-chosen topics under their own responsibility. In 2020, however, less money was available for this than in previous years. "In the first three years of the 2017-2020 funding period, we approved many excellent projects, most of which were multi-year," says Matthias Egger, president of the SNSF National Research Council. "This created financial commitments that reduced our budget for new projects in 2020." Because demand increased at the same time, the SNSF was only able to approve 37% of applications in project funding, compared to 49% in 2019.
+
+Last year, the SNSF also invested 241 million francs in career development, 167 million francs in programmes, 84 million francs in infrastructure and 12 million francs in science communication.
+
+Supplementary grants and measures amounted to 26 million francs, for example for researchers with childcare duties. In addition, the fifth series of National Centres of Competence in Research (NCCR), which address topics of strategic importance in the long term, began in the summer.
+
+### Stronger focus on practical relevance
+
+The SNSF approved 566 million francs for university projects and 212 million francs for institutions of the ETH Domain. Researchers from universities of applied sciences submitted more applications in 2020 than in the previous year. However, the total amount of funding awarded to them remained comparatively low: they received 35 million francs for 127 new projects. "The share of funding awarded to universities of applied sciences and universities of teacher education should be increased in the coming years," says Matthias Egger. "With this in mind, we will take greater account of practical relevance, among other aspects, when assessing applications."
+
+### Promoting women in research funding
+
+In total, more than 6000 SNSF-funded projects were underway at the end of 2020. Almost 20,000 researchers were involved, 38% of whom were women. The number of female researchers leading a project is still lower, despite all the efforts made so far. The SNSF wants to change this, as Angelika Kalt, Chair of the SNSF Executive Board, emphasises: "As part of our strategic priority of diversity in research, we want to increase the share of women in the competition for funding."
+
+### Large budget share for young researchers’ salaries
+
+Both experienced and young researchers receive support to pursue their research ideas. At the end of 2020, the median age of project leaders and their project partners was 47. The median age of project staff was 30; these are doctoral students, postdocs and other specialists. Overall, the SNSF allocates more than 70 per cent of its budget to salaries for young researchers. "With our funding, we are also making a significant contribution to the training of a highly qualified workforce for science, industry and public administration," says Angelika Kalt.
+
+Detailed 2020 key figures can be explored interactively <a href="https://data.snf.ch/key-figures/" target="_blank">here</a>.
+
+<div class="info-box">
+
+### 73 projects on COVID-19
+
+In March 2020, the SNSF launched the <a href="http://www.snf.ch/en/researchinFocus/newsroom/Pages/news-200518-the-snsf-funds-36-new-coronavirus-research-projects.aspx" target="_blank">special call for research proposals on coronaviruses</a>, and in April 2020 the federal government's <a href="http://www.snf.ch/en/researchinFocus/newsroom/Pages/news-200804-28-new-coronavirus-research-projects-funded-under-nrp-covid-19.aspx" target="_blank">National Research Programme "COVID-19" (NRP 78)</a>. 36 projects from the call started already in June 2020; and 28 projects of the NRP in August. Thanks to a donation, the SNSF was able to approve 9 additional projects. In total, it funded new research on COVID-19 with more than 30 million francs.
+
+The projects generate new insights into the COVID19 disease, the pandemic and its consequences. By doing so, they are expected to contribute to containing the virus. For example, Sebastian Maerkl (EPF Lausanne) and Isabella Eckerle (University of Geneva) are developing a promising USB stick-sized technology for mass serological testing. The technology identifies antibodies against the virus in blood samples taken by the test subjects themselves. Charlotta Sirén, Joakim Wincent, Dietmar Grichnik and Michael Hudecheck from the University of St. Gallen and Gerard George from the Management University of Singapore are analysing satellite data and media reports to understand people's reactions to pandemics worldwide. This knowledge will also be used to develop an early warning system. And Georgia Salanti (University of Bern) and Stefan Leucht (Technical University of Munich) and their team are continuously providing up-to-date scientific data on psychological problems, alcohol and drug abuse as well as violence in the population during the pandemic.
+
+Results of earlier research also came to bear in connection with COVID-19. In recent years, the SNSF has funded hundreds of virological and epidemiological projects. For example, projects investigating antibodies that dock onto viruses and thus render them harmless. This underlined the value of long-term and thematically broad basic research. In general, the rapid development of COVID-19 vaccines in various countries was only possible because knowledge about coronaviruses and RNA vaccines was already available thanks to global research, including in Switzerland.
+
+The COVID-19 pandemic affected many of the ongoing SNSF projects in 2020: laboratories and archives were temporarily closed, researchers took on more care duties at home, and there were supply bottlenecks for the necessary materials. The SNSF supported those affected with a series of measures. In spring, for example, it postponed the submission deadline for project funding, its largest funding scheme. Researchers were also able to extend their projects unbureaucratically and apply for additional funding as needed. More than 600 projects received a total of 13 million Swiss francs, allowing them to achieve their goals despite the pandemic.
+
+</div>

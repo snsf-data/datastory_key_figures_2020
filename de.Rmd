@@ -1,0 +1,112 @@
+---
+params: 
+  title: ""
+  publication_date: ""
+  doi: ""
+output: 
+  html_document:
+    anchor_sections: false
+    theme: null
+    highlight: null
+    mathjax: null
+    css: ["style.css", "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap"]
+    self_contained: true
+title: "`r params$title`"
+---
+
+
+```{r general-setup, include=FALSE}
+## This file contains the GERMAN version of the data story
+
+# Set general chunk options
+knitr::opts_chunk$set(echo = FALSE, fig.showtext = TRUE, fig.retina = 3, 
+                      fig.align = "center", warning = FALSE, message = FALSE)
+
+# Install pacman package if not available, otherwise load it
+if (!require("pacman")) {
+  install.packages("pacman")
+}
+
+# Install snf.datastory package if not available, otherwise load it
+if (!require("snf.datastory")) {
+  if (!require("devtools")) {
+    install.packages("devtools")
+  }
+  install_github("snsf-data/snf.datastory")
+}
+
+# Load packages
+p_load(tidyverse,
+       lubridate,
+       scales, 
+       conflicted, 
+       jsonlite,
+       here, 
+       ggiraph)
+
+# Conflict preferences
+conflict_prefer("filter", "dplyr")
+conflict_prefer("get_datastory_theme", "snf.datastory")
+conflict_prefer("get_datastory_scheme", "snf.datastory")
+
+# Increase showtext package font resolution
+showtext_opts(dpi = 320)
+
+# Set the locale for date formatting (Windows)
+Sys.setlocale("LC_TIME", "German")
+```
+
+```{r print-header-infos, results='asis'}
+# Add publication date to header
+cat(format(as_datetime(params$publication_date), "%d.%m.%Y"))
+```
+
+```{r story-specific-setup, include=FALSE}
+# Set story-specific variables etc. here
+
+# E.g. loading data...
+
+```
+
+
+<!-- Short lead (2-3 sentences) in bold -->
+
+__Im Jahr 2020 haben Forschende 8200 Fördergesuche beim SNF eingereicht. Er wählte in wettbewerbsorientierten Verfahren 3300 davon aus. Kurzfristig finanzierte er 73 Projekte zu Covid-19.__
+
+Tausende vom SNF unterstützte Teams erforschen Natur, Technik und Gesellschaft. Dadurch entsteht Wissen, das Fortschritt ermöglicht. 2020 hat der SNF 937 Mio. Franken in 3300 neue Projekte investiert, ausgewählt aus 8200 Gesuchen. 37% der Mittel gingen in das Fachgebiet Biologie und Medizin, 33% in die Geistes- und Sozialwissenschaften und 30% in Mathematik, Natur- und Ingenieurwissenschaften.
+
+### Rückgang in der Projektförderung
+
+Mit 433 Mio. Franken (inkl. 10 Mio. für das Programm "Spark") hat wie üblich das Instrument "Projektförderung" den grössten Anteil. Dank ihm realisieren Forschende eigenverantwortlich Projekte zu Themen, die sie selber gewählt haben. Allerdings stand dafür 2020 weniger Geld zur Verfügung. "In den ersten drei Jahren der Förderperiode 2017-2020 haben wir eine hohe Zahl hervorragender Projekte genehmigt, von denen die meisten mehrjährig sind", sagt Matthias Egger, Präsident des Nationalen Forschungsrats des SNF. "Die dadurch entstehenden finanziellen Verpflichtungen reduzierten 2020 das Budget für neue Projekte." Weil gleichzeitig die Nachfrage stieg, konnte der SNF in der Projektförderung nur 37% der Gesuche bewilligen, gegenüber 49% 2019.
+
+Weiter investierte der SNF letztes Jahr 241 Mio. Franken in die Förderung von Karrieren, 167 Mio. in Programme, 84 Mio. in Infrastrukturen und 12 Mio. in die Wissenschaftskommunikation.
+
+Hinzu kamen Zusatzbeiträge und ergänzende Massnahmen in der Höhe von 26 Mio. Franken, zum Beispiel für Forschende, die Kinder betreuen. Ausserdem begann im Sommer die fünfte Serie der Nationalen Forschungsschwerpunkte (NFS), die langfristig an Themen mit strategischer Bedeutung arbeiten.
+
+### Stärkerer Fokus auf Praxisrelevanz
+
+566 Mio. Franken bewilligte der SNF für Projekte der Universitäten, 212 Mio. für die Institutionen des ETH-Bereichs. Forschende von Fachhochschulen reichten 2020 zwar mehr Gesuche ein als im Vorjahr. Die Summe der ihnen zugesprochenen Beiträge blieb aber vergleichsweise gering: Für 127 neue Projekte erhielten sie 35 Mio. Franken. "Der Anteil der Fachhochschulen und auch der Pädagogischen Hochschulen an unserer Förderung soll in den kommenden Jahren steigen", sagt Matthias Egger. "Deshalb werden wir unter anderem die Praxisrelevanz stärker berücksichtigen, wenn wir Gesuche beurteilen."
+
+### Beteiligung der Frauen erhöhen
+
+Insgesamt waren Ende 2020 über 6000 vom SNF geförderte Projekte im Gang. Daran waren beinahe 20'000 Forschende beteiligt, wovon 38% Frauen. Die Zahl der Forscherinnen, die ein Projekt leiten, liegt noch tiefer, trotz aller bisherigen Bemühungen. Dies will der SNF ändern, wie Angelika Kalt, Vorsitzende der SNF-Geschäftsleitung, betont: "Im Rahmen unserer strategischen Priorität Vielfalt der Forschung möchten wir die Beteiligung der Frauen am Wettbewerb um Fördermittel erhöhen."
+
+### Grossteil für Löhne von Nachwuchsforschenden
+
+Sowohl erfahrene als auch junge Forschende erhalten Unterstützung, um ihre Ideen umzusetzen. Ende 2020 waren die Projektverantwortlichen und deren Projektpartner im Median 47 Jahre alt. Bei den Projektmitarbeitenden betrug das Medianalter 30 Jahre; dies sind Doktorierende, Postdoktorierende und weitere Fachleute. Insgesamt setzt der SNF mehr als 70 Prozent des Budgets für Löhne von Nachwuchsforschenden ein. "Mit unserer Förderung leisten wir also auch einen wesentlichen Beitrag an die Ausbildung hochqualifizierter Arbeitskräfte für Wissenschaft, Wirtschaft und öffentliche Verwaltung", sagt Angelika Kalt.
+
+Detaillierte Kennzahlen 2020 können <a target="_blank" href="https://data.snf.ch/key-figures/">hier</a> interaktiv erkundet werden.
+
+<div class="info-box">
+
+### 73 Projekte zu Covid-19
+
+Im März 2020 lancierte der SNF die <a href="http://www.snf.ch/de/fokusForschung/newsroom/Seiten/news-200518-snf-foerdert-36-neue-corona-forschungsprojekte.aspx" target="_blank">Sonderausschreibung Coronaviren</a> und im April 2020 das <a href="http://www.snf.ch/de/fokusForschung/newsroom/Seiten/news-200804-nfp-covid-19-foerdert-28-neue-corona-forschungsprojekte.aspx" target="_blank">Nationale Forschungsprogramm Covid-19 (NFP 78)</a> des Bundes. Bereits ab Juni 2020 begannen 36 Projekte der Ausschreibung; ab August kamen 28 Projekte des NFP hinzu. Dank einer Spen-de konnte der SNF 9 weitere Projekte bewilligen. Insgesamt förderte er neue Forschung zu Co-vid-19 im Umfang von gut 30 Mio. Franken.
+
+Die Projekte gewinnen Erkenntnisse zur Covid-19-Erkrankung, zur Pandemie und ihren Folgen. Dadurch sollen sie zur Eindämmung des Virus beitragen. Zum Beispiel entwickeln Sebastian Maerkl (EPF Lausanne) und Isabella Eckerle (Universität Genf) eine vielversprechende Technologie in der Grösse eines USB-Sticks für serologische Massentests. Die Technologie identifiziert Antikörper gegen das Virus in Blutproben, die von den Testpersonen selber entnommen werden. Charlotta Sirén, Joakim Wincent, Dietmar Grichnik und Michael Hudecheck von der Universität St. Gallen sowie Gerard George von der Management-Universität Singapur werten Satellitendaten und Medienberichte aus, um die Reaktionen der Menschen auf Pandemien weltweit zu verstehen. Daraus soll auch ein Frühwarnsystem entwickelt werden. Und Georgia Salanti (Universität Bern) und Stefan Leucht (Technische Universität München) liefern mit ihrem Team laufend aktuelle wissenschaftliche Daten über psychische Probleme, Alkohol- und Drogenmissbrauch sowie Gewalt in der Bevölkerung während der Pandemie.
+
+Resultate früherer Forschung kamen im Zusammenhang mit Covid-19 ebenfalls zum Tragen. Der SNF förderte in den vergangenen Jahren Hunderte von virologischen und epidemiologischen Projekten. Beispielsweise ging es um Antikörper, die an Viren andocken und diese dadurch un-schädlich machen. Hier zeigte sich einmal mehr der Wert einer langfristigen und thematisch breiten Grundlagenforschung. Generell war die rasche Entwicklung von Covid-19-Impfungen in diversen Ländern nur möglich, weil dank der weltweiten Forschung – auch in der Schweiz – bereits Erkenntnisse zu Coronaviren und RNA-Impfstoffen vorhanden waren.
+
+Die Covid-19-Pandemie wirkte sich 2020 auf viele der laufenden SNF-Projekte aus: Labore und Archive waren zeitweise geschlossen, Forschende übernahmen mehr Betreuung zu Hause, beim benötigten Material entstanden Lieferengpässe. Der SNF unterstützte Betroffene mit einer Reihe von Massnahmen. So verschob er im Frühling den Eingabetermin der Projektförderung, seines grössten Instruments. Weiter konnten die Forschenden ihre Projekte unbürokratisch verlängern und nach Bedarf auch Zusatzmittel beantragen. Mehr als 600 Projekte erhielten insgesamt 13 Millionen Franken, weshalb sie trotz der Pandemie ihre Ziele erreichten.
+
+</div>

@@ -1,0 +1,114 @@
+---
+params: 
+  title: ""
+  publication_date: ""
+  doi: ""
+output: 
+  html_document:
+    anchor_sections: false
+    theme: null
+    highlight: null
+    mathjax: null
+    css: ["style.css", "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap"]
+    self_contained: true
+title: "`r params$title`"
+---
+
+```{r general-setup, include=FALSE}
+## This file contains the FRENCH version of the data story 
+
+# Set general chunk options
+knitr::opts_chunk$set(echo = FALSE, fig.showtext = TRUE, fig.retina = 3, 
+                      fig.align = "center", warning = FALSE, message = FALSE)
+
+# Install pacman package if needed
+if (!require("pacman")) {
+  install.packages("pacman")
+}
+
+# Install snf.datastory package if not available, otherwise load it
+if (!require("snf.datastory")) {
+  if (!require("devtools")) {
+    install.packages("devtools")
+  }
+  install_github("snsf-data/snf.datastory")
+}
+
+# Load packages
+p_load(tidyverse,
+       lubridate,
+       scales, 
+       conflicted, 
+       jsonlite,
+       here)
+
+# Conflict preferences
+conflict_prefer("filter", "dplyr")
+conflict_prefer("get_datastory_theme", "snf.datastory")
+conflict_prefer("get_datastory_scheme", "snf.datastory")
+
+# Increase showtext package font resolution
+showtext_opts(dpi = 320)
+
+# Set the locale for date formatting (Windows)
+Sys.setlocale("LC_TIME", "French")
+```
+
+```{r print-header-infos, results='asis'}
+# Add publication date to header
+cat(format(as_datetime(params$publication_date), "%d.%m.%Y"))
+
+# Register the Google font (same as Data Portal, is not loaded twice)
+cat(paste0("<link href='https://fonts.googleapis.com/css?family=", 
+           "Source+Sans+Pro:400,700&display=swap' rel='stylesheet'>"))
+```
+
+```{r story-specific-setup, include=FALSE}
+# Set story-specific variables etc. here
+
+# E.g. loading data...
+
+```
+
+
+<!-- Short lead (2-3 sentences) in bold -->
+
+__En 2020, le FNS a reçu 8 200 requêtes et en a retenu 3 300 lors d’une procédure compétitive. De plus, 73 projets sur le Covid-19 ont été sélectionnés en accéléré.__
+
+Des milliers d'équipes soutenues par le FNS mènent des recherches sur la nature, la technologie et la société. Cela génère des connaissances qui rendent le progrès possible. En 2020, le FNS a investi 937 millions de francs dans 3 300 nouveaux projets, sélectionnés parmi 8 200 requêtes. Sur les moyens octroyés, 37% ont été alloués au domaine de la biologie et de la médecine, 33% aux sciences humaines et sociales et 30% aux mathématiques, sciences naturelles et de l’ingénieur·e.
+
+### Recul de l’encouragement de projets
+
+Doté d’une enveloppe de 433 millions de francs (dont 10 millions pour le programme "Spark"), l’instrument "Encouragement de projets" continue de représenter la part la plus importante des fonds attribués. Il permet aux chercheuses et chercheurs de mener des projets sous leur propre responsabilité sur des thèmes qu’ils ont choisis. Toutefois, les dotations 2020 ont accusé un recul par rapport aux exercices antérieurs. "Au cours des trois premières années de la période de subventionnement 2017-2020, nous avons retenu un nombre élevé d’excellents projets, dont la plupart sont pluriannuels", indique Matthias Egger, président du Conseil national de la recherche du FNS. "Les engagements financiers qui en découlent ont réduit le budget pour les nouveaux projets en 2020." Vu l’augmentation de la demande, le FNS n’a pu soutenir que 37% des requêtes dans l’encouragement de projets, contre 49% en 2019.
+
+L’an dernier, le FNS a par ailleurs investi 241 millions de francs dans l’encouragement de carrières, 167 millions dans les programmes, 84 millions dans les infrastructures et 12 millions dans la communication scientifique.
+
+S’y ajoutent des subsides complémentaires et des mesures supplémentaires d’un montant de 26 millions de francs, alloués par exemple aux chercheuses et chercheurs qui supportent des charges familiales. En outre, la cinquième série de Pôles de recherche nationaux (PRN), qui sont dédiés à des thèmes d’importance stratégique s’inscrivant sur le long terme, a été lancée dans le courant de l’été.
+
+### Un accent plus fort sur la dimension pratique
+
+En 2020, le FNS a accordé 566 millions de francs aux universités et 212 millions aux institutions du domaine des EPF. Si les chercheuses et chercheurs des hautes écoles spécialisées ont soumis plus de requêtes en 2020 qu’en 2019, en comparaison le montant des subsides qui leur ont été alloués est demeuré faible : 35 millions de francs pour 127 nouveaux projets. "La part représentée par les hautes écoles spécialisées et les hautes écoles pédagogiques se doit d’augmenter dans les années à venir", constate Matthias Egger." C’est pourquoi nous prendrons, entre autres, plus fortement en considération la dimension pratique lors de l’évaluation des requêtes."
+
+### Accroître la participation des femmes
+
+Au total, plus de 6 000 projets encouragés par le FNS étaient en cours fin 2020. Près de 20 000 scientifiques, dont 38% de femmes, y participaient. Malgré les efforts accomplis jusqu’à présent, le nombre de chercheuses dirigeant un projet s’avère encore plus faible. Comme le souligne la directrice générale du FNS, Angelika Kalt, le FNS souhaite remédier à cette situation: "Dans le cadre de notre priorité stratégique visant à promouvoir la diversité de la recherche, nous souhaitons accroître la participation des femmes dans la compétition aux financements."
+
+### La part la plus importante pour la relève
+
+Les scientifiques expérimentés comme les jeunes chercheuses et chercheurs bénéficient d’un soutien pour mettre leurs idées en œuvre. Fin 2020, les responsables de projet et leurs partenaires étaient en moyenne âgés de 47 ans (médiane). En ce qui concerne les collaboratrices et collaborateurs de projet – doctorant·es, postdoctorant·es et autres spécialistes – leur âge médian s’élevait à 30 ans. Le FNS consacre au total plus de 70% de son budget aux salaires de la relève. "A travers notre encouragement, nous apportons donc aussi une contribution essentielle à la formation de personnel hautement qualifié pour la science, l’économie et l’administration publique", ajoute Angelika Kalt.
+
+Des chiffres-clés détaillés pour l’exercice 2020 peuvent être consultés de manière interactive <a href="https://data.snf.ch/key-figures/" target="_blank">ici</a>.
+
+<div class="info-box">
+
+### 73 projets sur la pandémie de Covid-19
+
+Les coronavirus ont fait l’objet d’une <a href="http://www.snf.ch/fr/pointrecherche/newsroom/Pages/news-200518-coronavirus-36-projets-de-recherche.aspx" target="_blank">mise au concours spéciale en mars 2020</a> et le FNS a lancé le <a href="http://www.snf.ch/fr/pointrecherche/newsroom/Pages/news-200804-le-pnr-covid-19-encourage-28-noureaux-projets-de-recherche-sur-le-coronavirus.aspx" target="_blank">Programme national de recherche Covid-19 (PNR 78)</a> sur mandat de la Confédération en avril 2020. Les 36 projets de la mise au concours ont débuté dès le mois de juin et 28 projets du PNR s’y sont ajoutés en août. Grâce à un don, le FNS a par ailleurs pu sélectionner 9 projets supplémentaires. Au total, il encourage la nouvelle recherche en lien avec la pandémie de Covid-19 à hauteur de 30 millions de francs.
+
+Les projets permettent d’acquérir des connaissances sur la maladie, la pandémie et ses conséquences. Ils visent ainsi à contribuer à l’endiguement du virus. Sebastian Maerkl (EPF Lausanne) et Isabella Eckerle (Université de Genève) développent par exemple une technologie prometteuse de la taille d’une clé USB en vue de réaliser des tests sérologiques de masse. Elle identifie les anticorps du virus dans des échantillons de sang prélevés par les sujets eux-mêmes. Charlotta Sirén, Joakim Wincent, Dietmar Grichnik et Michael Hudecheck (Université de St-Gall) et Gerard George (Université de management de Singapour) évaluent les données satellitaires et les rapports des médias afin de mieux comprendre comment les populations réagissent aux pandémies. Ces données seront également utilisées pour développer un système d’alerte précoce. Georgia Salanti (Université de Berne) et Stefan Leucht (Université technique de Munich) et leur équipe fournissent en continu des données scientifiques actualisées sur les problèmes psychologiques, l’abus d’alcool et de drogues et la violence observés pendant la pandémie.
+
+Les résultats de précédents travaux de recherche ont également été exploités dans le contexte du Covid-19. Au cours des années passées, le FNS a en effet encouragé des centaines de projets virologiques et épidémiologiques, qui portaient, par exemple, sur les anticorps qui se fixent sur les virus et les rendent ainsi inoffensifs. Ceci démontre une fois de plus la valeur d’une recherche fondamentale axée sur le long terme et thématiquement étendue. De manière générale, le développement rapide de vaccins contre le Covid-19 dans divers pays a uniquement été possible grâce aux recherches précédentes effectuées sur les coronavirus et les vaccins à ARN dans le monde entier – et aussi en Suisse.
+
+En 2020, la pandémie de Covid-19 a influé sur l’avancée de nombreux projets du FNS: des laboratoires et des archives ont temporairement dû être fermés, des scientifiques avaient plus de charges familiales à domicile et des livraisons de matériel ont été retardées. Le FNS a adopté différentes mesures afin de soutenir les chercheuses et chercheurs concernés. Au printemps, le délai de soumission des requêtes en lien avec l’encouragement de projets, son principal instrument, a ainsi été reporté. Les chercheuses et chercheurs ont également pu prolonger leurs projets sans formalités administratives excessives et solliciter le cas échéant des moyens supplémentaires. Plus de 600 projets ont ainsi bénéficié d’une enveloppe additionnelle de 13 millions de francs qui leur a permis d’atteindre leurs objectifs malgré la pandémie.
+
+</div>
